@@ -19,7 +19,7 @@ This take-home assignment is designed to be completed in 1.5 to 2 hours. Please 
 
 ## Assessment
 
-You are allowed to use any online resource / AI-assisted IDEs like Cursor. We are primarily** interested in seeing how you actually work in order to assess your frontend knowledge and how clean/maintainable your code is.** You do not need to go above and beyond to add additional features, besides the ones we specify in the task.
+You are allowed to use any online resource / AI-assisted IDEs like Cursor. We are primarily interested in seeing how you actually work in order to assess your frontend knowledge and how clean/maintainable your code is. You do not need to go above and beyond to add additional features, besides the ones we specify in the task.
 
 For RecruitMax's MVP, we streamline the process of filling out college athletic recruiting forms across multiple sports (e.g., baseball, basketball, football, etc.).
 
