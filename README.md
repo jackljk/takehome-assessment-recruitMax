@@ -19,7 +19,7 @@ This take-home assignment is designed to be completed in 1.5 to 2 hours. Please 
 
 ## Assessment
 
-You are allowed to use any online resource / AI-assisted IDEs like Cursor. We are primarily interested in seeing how you actually work in order to assess your frontend knowledge and how clean/maintainable your code is. You do not need to go above and beyond to add additional features, besides the ones we specify in the task.
+You are allowed to use any online resource / AI-assisted IDEs like Cursor. We are primarily interested in seeing how you actually work in order to assess your frontend knowledge, how clean and maintainable your code is, and how consistent the code is with the provided code. You do not need to go above and beyond to add additional features, besides the ones we specify in the task.
 
 For RecruitMax's MVP, we streamline the process of filling out college athletic recruiting forms across multiple sports (e.g., baseball, basketball, football, etc.).
 
@@ -53,18 +53,23 @@ Here are some helpful tips for the project organization:
 - The main file you need to write code in is in `app/_components/user-sport-section.tsx`
 
 ## Setting Up the Project
-1. Clone the repository
+1. Fork the repository
+2. Clone the repository
 ```bash
-git clone https://github.com/recruitmax/takehome-assessment.git
+  git clone <repo_url>
 ```
-2. Install [node.js](https://nodejs.org/en) on your computer
-3. On your terminal, install all dependencies
+3. Ensure [node.js](https://nodejs.org/en) is installed on your computer
+4. On your terminal, install all dependencies
 ```bash
 npm install
 ```
-4. Run the local server
+5. Run the local server
 ```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Submission
+
+Please ensure your forked repository is public, and email the link to your repository to both brucehsu1126@gmail.com and climberkip@gmail.com. We'll review your submission within 1–3 business days, focusing on code quality. If it meets our standards, we’ll proceed to the next round.
