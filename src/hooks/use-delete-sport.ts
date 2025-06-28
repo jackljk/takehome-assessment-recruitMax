@@ -18,7 +18,7 @@ export const useDeleteSport = () => {
   // Close dialog when sport is actually removed from the list
   useEffect(() => {
     if (deleteConfirmOpen && sportToDelete && !(userSports as Sport[]).includes(sportToDelete)) {
-      toast.success(`${sportToDelete} has been removed`);
+      toast.success(`${sportToDelete.charAt(0).toUpperCase() + sportToDelete.slice(1)} has been removed`);
       setDeleteConfirmOpen(false);
       setSportToDelete(null);
       setIsDeleting(false);
@@ -37,7 +37,7 @@ export const useDeleteSport = () => {
       
       deleteSportMutation.mutate(sportToDelete, {
         onError: () => {
-          toast.error(`Failed to remove ${sportToDelete}`, {
+          toast.error(`Failed to remove ${sportToDelete.charAt(0).toUpperCase() + sportToDelete.slice(1)}`, {
             description: 'Please try again later.',
           });
           setDeleteConfirmOpen(false);

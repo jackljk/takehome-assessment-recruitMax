@@ -19,7 +19,7 @@ export const useAddSport = () => {
   // Close dialog when sport is actually added to the list
   useEffect(() => {
     if (addDialogOpen && sportBeingAdded && (userSports as Sport[]).includes(sportBeingAdded)) {
-      toast.success(`${sportBeingAdded} has been successfully added`);
+    toast.success(`${sportBeingAdded.charAt(0).toUpperCase() + sportBeingAdded.slice(1)} has been successfully added`);
       setAddDialogOpen(false);
       setSelectedSport('');
       setIsAdding(false);
