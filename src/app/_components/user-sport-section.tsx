@@ -1,61 +1,78 @@
+'use client';
+
 import { type Sport } from '@/api/sports';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Typography } from '@/components/ui/typography';
-import { cn, getActiveStyles } from '@/lib/utils';
-import { PlusCircleIcon } from 'lucide-react';
-import {
-  FaBaseballBall,
-  FaBasketballBall,
-  FaFootballBall,
-} from 'react-icons/fa';
-import { PiSoccerBall, PiTennisBall } from 'react-icons/pi';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getMatchingSportsIcon(sport: Sport) {
-  switch (sport) {
-    case 'baseball':
-      return FaBaseballBall;
-    case 'basketball':
-      return FaBasketballBall;
-    case 'football':
-      return FaFootballBall;
-    case 'soccer':
-      return PiSoccerBall;
-    case 'tennis':
-      return PiTennisBall;
-    default:
-      throw new Error(`No icon found for sport: ${sport}`);
-  }
-}
-
-const AddSportCard = () => {
-  return (
-    <Card
-      className={cn(
-        getActiveStyles(false),
-        'aspect-square justify-center hover:cursor-pointer transition-all relative'
-      )}
-    >
-      <CardContent className="flex flex-col items-center gap-1 md:gap-2">
-        <PlusCircleIcon className="w-12 h-12 lg:w-16 lg:h-16" />
-        <Typography variant="h3" as="p" className="capitalize">
-          Add Sport
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
+import { useQuery } from '@tanstack/react-query';
+import { 
+  userSportSubscriptionsQueryOptions,
+  currentSportQueryOptions,
+  useSetCurrentSportMutation
+} from '../queries';
+import { useDeleteSport } from '@/hooks/use-delete-sport';
+import { SportCard } from './sport-card';
+import { AddSportCard } from './add-sport-card';
+import { DeleteSportConfirmDialog } from './delete-sport-confirm-dialog';
 
 const UserSportSection = () => {
+  const { data: userSports = [] } = useQuery(userSportSubscriptionsQueryOptions());
+  const { data: currentSport } = useQuery(currentSportQueryOptions());
+  const setCurrentSportMutation = useSetCurrentSportMutation();
+  
+  const {
+    deleteConfirmOpen,
+    sportToDelete,
+    isDeleting,
+    handleDeleteSport,
+    confirmDeleteSport,
+    cancelDeleteSport,
+    setDeleteConfirmOpen
+  } = useDeleteSport();
+  
+  // Debug logging
+  console.log('=== DEBUG INFO ===');
+  console.log('Current Sport from API:', currentSport);
+  console.log('All Subscribed Sports:', userSports);
+  console.log('==================');
+  
+  const handleSportClick = (sport: Sport) => {
+    console.log(`🎯 Attempting to set current sport to: ${sport}`);
+    setCurrentSportMutation.mutate(sport);
+  };
+  
   return (
-    <Card className="gap-1">
-      <CardHeader>
-        <Typography variant="h2">Sport Selected:</Typography>
-      </CardHeader>
-      <CardContent className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 w-full">
-        <AddSportCard />
-      </CardContent>
-    </Card>
+    <>
+      <Card className="gap-1">
+        <CardHeader>
+          <Typography variant="h2">Sport Selected:</Typography>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 w-full">
+          {/* Render all subscribed sports */}
+          {userSports.map((sport) => (
+            <SportCard 
+              key={sport} 
+              sport={sport} 
+              isSelected={currentSport === sport}
+              onClick={() => handleSportClick(sport)}
+              onDelete={handleDeleteSport}
+            />
+          ))}
+          
+          {/* Add Sport card */}
+          <AddSportCard />
+        </CardContent>
+      </Card>
+
+      {/* Confirmation Dialog */}
+      <DeleteSportConfirmDialog
+        open={deleteConfirmOpen}
+        onOpenChange={setDeleteConfirmOpen}
+        sportToDelete={sportToDelete}
+        isDeleting={isDeleting}
+        onConfirm={confirmDeleteSport}
+        onCancel={cancelDeleteSport}
+      />
+    </>
   );
 };
 
